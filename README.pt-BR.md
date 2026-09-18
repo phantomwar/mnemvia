@@ -49,7 +49,7 @@ cargo run -- status --database .mnemvia/mnemvia.sqlite3
 cargo run -- verify --database .mnemvia/mnemvia.sqlite3
 ~~~
 
-A saída de `search` é um ContextPackage JSON com fontes, orçamento heurístico por palavras e capacidades degradadas explícitas. `heuristic-v1` não é contagem exata no tokenizer. Use `inspect --source-id <id>` para abrir a evidência preservada, hashes das revisões, fatos extraídos, estado de supressão e paridade com o FTS. `eval` verifica pré-condições do fixture e informa recall de recuperação; não afirma qualidade semântica de resposta nem desempenho de benchmark.
+A saída de `search` é um ContextPackage JSON com fontes, orçamento heurístico por palavras e capacidades degradadas explícitas. `heuristic-v1` não é contagem exata no tokenizer, mas orçamentos finitos são respeitados incluindo o marcador de truncamento. Use `inspect --source-id <id>` para abrir a evidência preservada, hashes das revisões, fatos extraídos, estado de supressão e paridade com o FTS. `eval` verifica pré-condições do fixture e informa recall de recuperação; não afirma qualidade semântica de resposta nem desempenho de benchmark.
 
 `suppress` remove uma fonte da recuperação e registra um bloqueio persistente de reingestão para aquela raiz e escopo. Não apaga o arquivo original. `unsuppress` remove apenas o bloqueio; execute `ingest` depois para reativar uma fonte existente.
 

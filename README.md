@@ -59,7 +59,7 @@ cargo run -- status --database .mnemvia/mnemvia.sqlite3
 cargo run -- verify --database .mnemvia/mnemvia.sqlite3
 ~~~
 
-The `search` output is a JSON ContextPackage with sources, a heuristic word budget and explicit degraded capabilities. `heuristic-v1` is not an exact tokenizer count. Use `inspect --source-id <id>` to retrieve preserved evidence, revision hashes, extracted facts, suppression state and FTS parity for a result. `eval` validates fixture preconditions and reports retrieval recall; it does not claim semantic answer quality or benchmark performance.
+The `search` output is a JSON ContextPackage with sources, a heuristic word budget and explicit degraded capabilities. `heuristic-v1` is not an exact tokenizer count, but finite budgets are enforced including the truncation marker. Use `inspect --source-id <id>` to retrieve preserved evidence, revision hashes, extracted facts, suppression state and FTS parity for a result. `eval` validates fixture preconditions and reports retrieval recall; it does not claim semantic answer quality or benchmark performance.
 
 `suppress` removes a source from retrieval and records a persistent block on future ingestion under that root and scope. It does not delete the original file. `unsuppress` only removes the block; run `ingest` afterward to reactivate a present source.
 

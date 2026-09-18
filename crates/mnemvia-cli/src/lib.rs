@@ -1187,14 +1187,13 @@ fn trim_to_budget(content: &str, remaining_budget: usize) -> String {
     if remaining_budget == 0 {
         return content.to_owned();
     }
-    let words = content
-        .split_whitespace()
-        .take(remaining_budget)
-        .collect::<Vec<_>>();
-    if words.len() == content.split_whitespace().count() {
+    let words = content.split_whitespace().collect::<Vec<_>>();
+    if words.len() <= remaining_budget {
         words.join(" ")
+    } else if remaining_budget == 1 {
+        "…".to_owned()
     } else {
-        format!("{} …", words.join(" "))
+        format!("{} …", words[..remaining_budget - 1].join(" "))
     }
 }
 
@@ -1232,8 +1231,38 @@ mod tests {
 
     #[test]
     fn compressor_reports_word_budget() {
-        assert_eq!(trim_to_budget("um dois tres", 2), "um dois …");
+        assert_eq!(trim_to_budget("um dois tres", 2), "um …");
+        assert_eq!(estimate_tokens(&trim_to_budget("um dois", 1)), 1);
         assert_eq!(estimate_tokens("um dois tres"), 3);
+    }
+
+    #[test]
+    fn context_package_never_exceeds_budget() {
+        let package = context_package(
+            "consulta",
+            "test",
+            vec![
+                SearchResult {
+                    source_id: 1,
+                    path: "first.md".to_owned(),
+                    score: 1.0,
+                    snippet: "um dois".to_owned(),
+                    content: "um dois tres quatro".to_owned(),
+                },
+                SearchResult {
+                    source_id: 2,
+                    path: "second.md".to_owned(),
+                    score: 2.0,
+                    snippet: "cinco".to_owned(),
+                    content: "cinco seis".to_owned(),
+                },
+            ],
+            3,
+        );
+        assert_eq!(package["used_tokens"], 3);
+        assert_eq!(package["evidence_items"].as_array().unwrap().len(), 1);
+        assert_eq!(package["evidence_items"][0]["content"], "um dois …");
+        assert_eq!(package["insufficient_context"], true);
     }
 
     #[test]

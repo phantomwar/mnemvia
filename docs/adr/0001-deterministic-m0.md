@@ -12,7 +12,7 @@ Implementar inicialmente um CLI Rust com SQLite embutido e FTS5. O perfil `deter
 
 O schema v4 acrescenta supressão persistente por raiz, escopo e caminho relativo e migra o `operation_journal` para aceitar `ingest`. Suprimir retira a fonte de FTS e fatos canônicos sem apagar o arquivo original; remover a supressão exige reingestão explícita. O journal registra início, conclusão ou falha de `ingest`, `suppress` e `unsuppress`; ingestão usa caminho nulo para representar a raiz inteira. Isso torna operações incompletas observáveis, mas não substitui replay automático após queda ou exclusão em lote prevista no PRD.
 
-O orçamento atual usa `heuristic-v1`, baseado em palavras. É uma marca explícita de limitação, não uma contagem no tokenizer do consumidor. Embeddings, vetor, reranking, bibliotecário e geração ficam inativos.
+O orçamento atual usa `heuristic-v1`, baseado em palavras. É uma marca explícita de limitação, não uma contagem no tokenizer do consumidor; ainda assim, um orçamento finito é aplicado estritamente, contando o marcador de truncamento. Embeddings, vetor, reranking, bibliotecário e geração ficam inativos.
 
 ## Consequências
 
