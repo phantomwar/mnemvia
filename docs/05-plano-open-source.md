@@ -45,7 +45,7 @@ Usar DCO 1.1 sem cessão de copyright ou CLA inicial. Um responsável humano dev
 
 Modelo inicial conduzido por mantenedor, com decisões arquiteturais registradas e evolução proporcional à comunidade real. Identificar contas e responsáveis antes da publicação; não simular fundação ou equipe que ainda não existe. [Governança](../GOVERNANCE.md).
 
-Antes do alpha público: estabelecer canal privado de vulnerabilidades, CI com isolamento de segredos, auditoria de dependências/licenças, restauração testada e instruções de reporte. Segurança foca raízes autorizadas, parsers, dados locais, API, caches e isolamento de escopos. [Segurança](../SECURITY.md).
+Antes do alpha público: estabelecer canal privado de vulnerabilidades, ampliar a CI atual com isolamento de segredos, auditoria de dependências/licenças, restauração testada e instruções de reporte. Segurança foca raízes autorizadas, parsers, dados locais, API, caches e isolamento de escopos. [Segurança](../SECURITY.md).
 
 ## Lançamento e manutenção
 

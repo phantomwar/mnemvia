@@ -2,6 +2,8 @@
 
 **Conhecimento reutilizável. Contexto rastreável. Execução local.**
 
+[![CI](https://github.com/phantomwar/mnemvia/actions/workflows/ci.yml/badge.svg)](https://github.com/phantomwar/mnemvia/actions/workflows/ci.yml)
+
 [English](README.md) · [GitHub](https://github.com/phantomwar/mnemvia) · [Dependências](DEPENDENCIES.md) · [Roadmap](ROADMAP.md) · [Contribuição](CONTRIBUTING.md)
 
 Mnemvia é um motor RAG local e open source, projetado para reutilizar conhecimento entre documentos e compilar contexto rastreável dentro de um orçamento de tokens.

@@ -1,6 +1,6 @@
 # Contributing to Mnemvia
 
-Mnemvia has a deterministic M0 CLI. Useful first contributions include a focused documentation improvement, a synthetic knowledge corpus proposal, an evaluation design or a tested improvement to the lexical profile. Run `cargo test --workspace` and `cargo clippy --workspace -- -D warnings` for Rust changes. There is no configured CI or published release yet.
+Mnemvia has a deterministic M0 CLI. Useful first contributions include a focused documentation improvement, a synthetic knowledge corpus proposal, an evaluation design or a tested improvement to the lexical profile. Run `cargo test --workspace` and `cargo clippy --workspace -- -D warnings` for Rust changes. The public repository runs formatting, check, Clippy and test jobs on pushes and pull requests; there is no published release yet.
 
 ## Contribution workflow
 
@@ -20,7 +20,7 @@ Every contribution commit must include a `Signed-off-by: Name <email>` trailer i
 
 By submitting work, you must have the right to contribute it under these terms, including any employer authorization that applies. Preserve third-party notices and disclose imported material with its origin and license. Code suggested by AI is subject to the same review, origin and licensing requirements. The human contributor remains responsible for understanding and validating it.
 
-DCO enforcement is a policy at this stage; an automated check must be configured before code releases are accepted as passing CI.
+DCO sign-off is required by policy. Automated DCO enforcement is still a release gate to configure before the first code release.
 
 ## Knowledge fixtures and privacy
 

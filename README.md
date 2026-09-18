@@ -2,6 +2,8 @@
 
 **Reusable knowledge. Traceable context. Local execution.**
 
+[![CI](https://github.com/phantomwar/mnemvia/actions/workflows/ci.yml/badge.svg)](https://github.com/phantomwar/mnemvia/actions/workflows/ci.yml)
+
 [Português](README.pt-BR.md) · [GitHub](https://github.com/phantomwar/mnemvia) · [Dependencies](DEPENDENCIES.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
 Mnemvia is an open-source local RAG engine designed to reuse knowledge across documents and compile traceable context within a token budget.
