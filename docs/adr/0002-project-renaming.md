@@ -16,6 +16,7 @@ O posicionamento público permanece: “Local knowledge, reusable facts, efficie
 ## Consequências
 
 - O crate passa a ser `mnemvia-cli` e o executável `mnemvia`.
+- O repositório público é `https://github.com/phantomwar/mnemvia`.
 - O diretório de estado padrão passa a ser `.mnemvia/mnemvia.sqlite3`.
 - A documentação atual, manifestos e exemplos usam Mnemvia; o material em `docs/archive/` continua preservando o histórico anterior.
 - Bases antigas continuam utilizáveis quando fornecidas explicitamente com `--database`; não há compatibilidade implícita com o caminho padrão antigo.

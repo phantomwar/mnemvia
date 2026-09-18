@@ -6,7 +6,7 @@
 
 Nome escolhido para o planejamento: **Mnemvia**. O nome combina a ideia de memória (`mneme`) com um caminho de recuperação (`via`), sem prender o projeto a um modelo, banco ou interface. Descrição pública: “Local knowledge, reusable facts, efficient context”.
 
-Substitui ContextWeft, cuja metáfora de tecelagem se aproximava de projetos como ContextWeave e produtos Weft. A pesquisa web pelas expressões exatas “Mnemvia” software RAG e “Mnemvia” GitHub não retornou resultados em 18/09/2026. Isso é apenas triagem inicial: não verifica marcas, domínios, todas as plataformas ou projetos não indexados. Nenhum namespace foi reservado. Confirmar disponibilidade na plataforma escolhida antes de publicar. A decisão e o plano de migração estão em [ADR 0002](adr/0002-project-renaming.md).
+Substitui ContextWeft, cuja metáfora de tecelagem se aproximava de projetos como ContextWeave e produtos Weft. A pesquisa web pelas expressões exatas “Mnemvia” software RAG e “Mnemvia” GitHub não retornou resultados em 18/09/2026. Isso é apenas triagem inicial: não verifica marcas, domínios, todas as plataformas ou projetos não indexados. O repositório público foi criado em [github.com/phantomwar/mnemvia](https://github.com/phantomwar/mnemvia); marca, domínio e namespaces de pacotes ainda não foram reservados. A decisão e o plano de migração estão em [ADR 0002](adr/0002-project-renaming.md).
 
 O diferencial a testar é o ciclo completo: fontes humanas → unidades reutilizáveis com variantes → atualização incremental → contexto econômico com evidências → retorno revisável às fontes. Evitar promessas como “o RAG mais rápido” sem benchmark reproduzível.
 

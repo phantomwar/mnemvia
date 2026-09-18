@@ -2,7 +2,7 @@
 
 **Reusable knowledge. Traceable context. Local execution.**
 
-[Português](README.pt-BR.md) · [Dependencies](DEPENDENCIES.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+[Português](README.pt-BR.md) · [GitHub](https://github.com/phantomwar/mnemvia) · [Dependencies](DEPENDENCIES.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
 Mnemvia is an open-source local RAG engine designed to reuse knowledge across documents and compile traceable context within a token budget.
 
@@ -112,5 +112,5 @@ Do not submit private documents, secrets or unlicensed datasets. The [security p
 
 Original project materials are licensed under [Apache-2.0](LICENSE), unless explicitly stated otherwise. Third-party components, input data and model weights retain their own terms. See [licensing policy](docs/LICENSING.md).
 
-Mnemvia is the selected project name. No trademark, domain or package namespace was registered by this planning work.
+Mnemvia is the selected project name. The public repository is [github.com/phantomwar/mnemvia](https://github.com/phantomwar/mnemvia). No trademark, domain or package namespace was registered by this planning work.
 
