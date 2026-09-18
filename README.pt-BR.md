@@ -53,11 +53,11 @@ A saída de `search` é um ContextPackage JSON com fontes, orçamento heurístic
 
 `suppress` remove uma fonte da recuperação e registra um bloqueio persistente de reingestão para aquela raiz e escopo. Não apaga o arquivo original. `unsuppress` remove apenas o bloqueio; execute `ingest` depois para reativar uma fonte existente.
 
-O schema também registra operações de ingestão e supressão como `started`, `completed` ou `failed`; use `operations` para inspecioná-las. Uma operação de ingestão com `path: null` representa a raiz inteira. Uma operação pendente torna uma transição incompleta visível; replay automático e recuperação completa de exclusão em lote continuam pendentes.
+O schema também registra operações de ingestão e supressão como `started`, `completed` ou `failed`; use `operations` para inspecioná-las. Uma operação de ingestão com `path: null` representa a raiz inteira. Ingestão e supressão confirmam o journal na mesma transação da mutação das fontes; se houver interrupção antes do commit, ambas são revertidas e a operação permanece visível como `started`. Replay automático e recuperação completa de exclusão em lote continuam pendentes.
 
 `verify` é uma verificação de integridade somente leitura para paridade entre fontes e FTS, suporte de fatos, política de supressão e operações pendentes. Ele informa se o banco está consistente; não corrige dados automaticamente.
 
-`recover` marca como falhas as operações deixadas em `started` e informa como repetir o comando. Ele não presume se uma transação interrompida chegou a confirmar; revise o banco e execute o comando original explicitamente.
+`recover` marca como falhas as operações deixadas em `started` e informa como repetir o comando. Ele é conservador e idempotente: não presume se uma transação antiga chegou a confirmar, e repeti-lo não altera operações já recuperadas. Revise o banco e execute o comando original explicitamente.
 
 ## Dependências e projetos relacionados
 

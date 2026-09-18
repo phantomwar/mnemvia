@@ -68,7 +68,7 @@ Dependência: M0. Relações em SQLite bastam para o experimento inicial; adotar
 
 Responsável: mantenedor do núcleo. Evidência exigida: fixtures, logs sanitizados de fases, estado final e contadores de recomposição; não basta demonstrar exclusão bem-sucedida sem interrupção.
 
-Estado atual: o perfil M0 implementa remoção da fonte ausente, `suppress`/`unsuppress` persistentes, journal visível para `ingest`, `suppress` e `unsuppress`, inspeção de revisões/fatos/supressão/FTS, marcação manual de operações interrompidas com `recover`, verificação de integridade somente leitura e migração v3→v4. O journal expõe uma operação interrompida e `verify` identifica divergências, mas recuperação transacional após queda, replay automático, batches e reconciliação de backup continuam pendentes; não tratar essa primeira fronteira como cumprimento integral de RAG-19.
+Estado atual: o perfil M0 implementa remoção da fonte ausente, `suppress`/`unsuppress` persistentes, journal visível para `ingest`, `suppress` e `unsuppress`, conclusão do journal na mesma transação da mutação de fonte, inspeção de revisões/fatos/supressão/FTS, marcação manual e idempotente de operações interrompidas com `recover`, verificação de integridade somente leitura e migração v3→v4. O journal expõe uma operação interrompida e `verify` identifica divergências; replay automático, batches, recuperação completa após queda e reconciliação de backup continuam pendentes. Não tratar essa primeira fronteira como cumprimento integral de RAG-19.
 
 ## 5. M2 — Recuperação, bibliotecário e compilador (4–7 semanas)
 

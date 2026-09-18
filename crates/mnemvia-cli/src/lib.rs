@@ -193,7 +193,7 @@ pub fn ingest(connection: &mut Connection, root: &Path, scope: &str) -> Result<I
     let canonical_root = canonical_root(root)?;
     let root_name = canonical_root.to_string_lossy().replace('\\', "/");
     let operation_id = start_operation(connection, "ingest", scope, &root_name, "")?;
-    let result = ingest_transaction(connection, &canonical_root, scope);
+    let result = ingest_transaction(connection, &canonical_root, scope, operation_id);
     finish_operation(connection, operation_id, &result)?;
     result.map(|mut summary| {
         summary.operation_id = operation_id;
@@ -205,6 +205,7 @@ fn ingest_transaction(
     connection: &mut Connection,
     root: &Path,
     scope: &str,
+    operation_id: i64,
 ) -> Result<IngestSummary> {
     if scope.trim().is_empty() {
         bail!("scope must not be empty");
@@ -275,6 +276,7 @@ fn ingest_transaction(
     summary.revoked += revoke_missing_sources(&transaction, scope, &root_name, &seen)?;
     rebuild_canonical_facts(&transaction)?;
     summary.facts = transaction.query_row("SELECT COUNT(*) FROM facts", [], |row| row.get(0))?;
+    complete_operation(&transaction, operation_id)?;
     transaction.commit()?;
     Ok(summary)
 }
@@ -305,6 +307,7 @@ pub fn suppress_source(
         )?;
         let deactivated = deactivate_source(&transaction, scope, &root_name, &relative_path)?;
         rebuild_canonical_facts(&transaction)?;
+        complete_operation(&transaction, operation_id)?;
         transaction.commit()?;
         Ok(json!({
             "operation_id": operation_id,
@@ -335,10 +338,13 @@ pub fn unsuppress_source(
     let operation_id =
         start_operation(connection, "unsuppress", scope, &root_name, &relative_path)?;
     let result = (|| -> Result<Value> {
-        let removed = connection.execute(
+        let transaction = connection.transaction()?;
+        let removed = transaction.execute(
             "DELETE FROM source_suppressions WHERE scope = ?1 AND root_path = ?2 AND relative_path = ?3",
             params![scope, root_name, relative_path],
         )?;
+        complete_operation(&transaction, operation_id)?;
+        transaction.commit()?;
         Ok(json!({
             "operation_id": operation_id,
             "scope": scope,
@@ -1061,6 +1067,16 @@ fn finish_operation<T>(
     Ok(())
 }
 
+fn complete_operation(transaction: &Transaction<'_>, operation_id: i64) -> Result<()> {
+    transaction.execute(
+        "UPDATE operation_journal
+         SET state = 'completed', completed_at_ms = ?1
+         WHERE id = ?2 AND state = 'started'",
+        params![now_ms()?, operation_id],
+    )?;
+    Ok(())
+}
+
 fn rebuild_canonical_facts(transaction: &Transaction<'_>) -> Result<()> {
     transaction.execute("DELETE FROM fact_supports", [])?;
     transaction.execute("DELETE FROM canonical_facts", [])?;
@@ -1463,6 +1479,42 @@ mod tests {
             connection
                 .query_row::<i64, _, _>("SELECT COUNT(*) FROM sources", [], |row| row.get(0),)?,
             0
+        );
+        let repeated = recover_operations(&connection, 10)?;
+        assert_eq!(repeated["recovered"], 0);
+        assert!(repeated["operations"].as_array().is_some_and(Vec::is_empty));
+        Ok(())
+    }
+
+    #[test]
+    fn operation_completion_rolls_back_with_mutation() -> Result<()> {
+        let mut connection = Connection::open_in_memory()?;
+        migrate(&connection)?;
+        let operation_id = start_operation(&connection, "ingest", "test", "/tmp/root", "")?;
+        {
+            let transaction = connection.transaction()?;
+            transaction.execute(
+                "INSERT INTO sources(
+                    scope, root_path, relative_path, content_hash, content,
+                    byte_length, active, created_at_ms, updated_at_ms
+                 ) VALUES ('test', '/tmp/root', 'note.md', 'hash', 'content', 7, 1, 1, 1)",
+                [],
+            )?;
+            complete_operation(&transaction, operation_id)?;
+        }
+
+        assert_eq!(
+            connection
+                .query_row::<i64, _, _>("SELECT COUNT(*) FROM sources", [], |row| row.get(0))?,
+            0
+        );
+        assert_eq!(
+            connection.query_row::<String, _, _>(
+                "SELECT state FROM operation_journal WHERE id = ?1",
+                [operation_id],
+                |row| row.get(0),
+            )?,
+            "started"
         );
         Ok(())
     }

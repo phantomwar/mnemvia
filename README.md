@@ -63,11 +63,11 @@ The `search` output is a JSON ContextPackage with sources, a heuristic word budg
 
 `suppress` removes a source from retrieval and records a persistent block on future ingestion under that root and scope. It does not delete the original file. `unsuppress` only removes the block; run `ingest` afterward to reactivate a present source.
 
-The schema also records ingestion and suppression operations as `started`, `completed` or `failed`; use `operations` to inspect them. An ingestion operation with `path: null` represents the whole root. A pending operation makes an incomplete transition visible; automatic replay and full crash recovery for batch deletion remain future work.
+The schema also records ingestion and suppression operations as `started`, `completed` or `failed`; use `operations` to inspect them. An ingestion operation with `path: null` represents the whole root. Ingestion and suppression complete the journal in the same transaction as their source mutation, so a pre-commit interruption leaves both changes rolled back and visible as `started`. Automatic replay and full crash recovery for batch deletion remain future work.
 
 `verify` is a read-only integrity check for source/FTS parity, fact support, suppression policy and pending operations. It reports whether the current database is internally consistent; it does not repair data automatically.
 
-`recover` marks operations left in `started` state as failed with a retry instruction. It does not guess whether a crashed transaction committed; review the database and rerun the original command explicitly.
+`recover` marks operations left in `started` state as failed with a retry instruction. It is conservative and idempotent: it does not guess whether an older transaction committed, and repeating it does not alter already recovered operations. Review the database and rerun the original command explicitly.
 
 ## Dependencies and related projects
 
