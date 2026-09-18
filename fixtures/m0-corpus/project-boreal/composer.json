@@ -1,0 +1,9 @@
+{
+  "name": "example/boreal",
+  "require": {
+    "vendor/shared-auth": "^1.2"
+  },
+  "require-dev": {
+    "vendor/test-tool": "^2.0"
+  }
+}

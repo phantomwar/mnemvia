@@ -1,0 +1,39 @@
+# Contributing to Opseld
+
+Opseld is in the design stage. Start with a focused documentation improvement, a synthetic incident proposal or an evaluation design. There is no executable application, build command or configured CI yet.
+
+## Contribution workflow
+
+1. For a significant feature, describe the operator problem, proposed scope, alternatives and acceptance evidence in an issue before implementation.
+2. Keep pull requests small and identify the requirement or issue they address.
+3. State what changed, why, how it was checked and any remaining limitation. Never claim tests ran if they did not.
+4. Include migration and compatibility notes for schema or protocol changes.
+5. Add tests that demonstrate meaningful behavior or a security boundary when implementation exists.
+
+English is preferred for public interfaces and canonical documentation. Portuguese and English are both welcome in discussions; language should not block a useful contribution.
+
+## Origin and licensing
+
+Contributions are accepted under Apache-2.0 and the [Developer Certificate of Origin 1.1](DCO.txt). Contributors retain copyright in their work. No copyright assignment or separate CLA is required by the initial project policy.
+
+Every contribution commit must include a `Signed-off-by: Name <email>` trailer identifying the contributor and certifying the DCO. Configure an appropriate public contribution email before creating public commits; never invent an identity or sign on another person's behalf. DCO sign-off is an origin certification, not a cryptographic commit signature.
+
+By submitting work, you must have the right to contribute it under these terms, including any employer authorization that applies. Preserve third-party notices and disclose imported material with its origin and license. Code suggested by AI is subject to the same review, origin and licensing requirements. The human contributor remains responsible for understanding and validating it.
+
+DCO enforcement is a policy at this stage; an automated check must be configured before code releases are accepted as passing CI.
+
+## Incident fixtures and privacy
+
+Public fixtures must be synthetic and created for redistribution, or have documented permission and compatible licensing. Sanitizing production logs does not automatically make them safe or redistributable.
+
+Do not submit production credentials, customer records, real host inventories, private repository content, model weights or unlicensed copied runbooks. Keep fixture provenance and expected outcomes alongside the fixture. Maintain a time boundary so future incident resolutions cannot leak into evaluation inputs.
+
+## Dependency proposals
+
+Explain the capability, license, maintenance status, platform support, offline behavior and resource impact. Prefer a small adapter to introducing a mandatory service for one optional feature. Optional integrations still need explicit license and security review.
+
+## Reviews and decisions
+
+Routine fixes follow maintainer review. Architecture, security boundaries, public schemas and licensing changes need a written proposal and follow [GOVERNANCE.md](GOVERNANCE.md). An open issue is not a promise of implementation or support.
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for participation expectations and [SECURITY.md](SECURITY.md) for sensitive reports.

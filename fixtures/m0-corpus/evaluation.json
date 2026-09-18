@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "queries": [
+    {
+      "id": "shared-module",
+      "query": "shared authentication module",
+      "expected_paths": ["knowledge/shared-auth.md", "project-atlas/README.md", "project-boreal/README.md"]
+    },
+    {
+      "id": "atlas-override",
+      "query": "rotation enabled Atlas",
+      "expected_paths": ["project-atlas/README.md"]
+    },
+    {
+      "id": "composer-dependency",
+      "query": "vendor shared auth",
+      "expected_paths": ["project-atlas/composer.json", "project-boreal/composer.json"]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "example/atlas",
+  "require": {
+    "vendor/shared-auth": "^1.2",
+    "vendor/http-client": "^3.0"
+  }
+}

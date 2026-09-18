@@ -1,0 +1,33 @@
+# Local configuration, private source documents and generated indexes
+.env
+.env.*
+!.env.example
+secrets/
+private/
+data/
+models/
+backups/
+*.gguf
+*.safetensors
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+.mnemvia/
+.mnemvia/
+
+# Build outputs and editor state
+target/
+node_modules/
+dist/
+.venv/
+__pycache__/
+.DS_Store
+Thumbs.db
+
